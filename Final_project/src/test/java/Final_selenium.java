@@ -24,46 +24,27 @@ import java.util.*;
 import java.util.concurrent.TimeUnit;
 
 public class Final_selenium {
-    WebDriver driver;
 
 
+
+    WebDriver driver =  null;
     @BeforeTest
-    @Parameters("browser")
-    public void setup(String browser) throws Exception{
+    @Parameters("browserName")
+    public void setup(String browserName) {
 
-        //Check if parameter passed as 'chrome'
-        if(browser.equalsIgnoreCase("chrome")){
-            //set path to chromedriver.exe
-            //  System.setProperty("webdriver.chrome.driver", "src/main/resources/chromedriver.exe");
+        if (browserName.equalsIgnoreCase("chrome")) {
             WebDriverManager.chromedriver().setup();
-
-            //create chrome instance
-            ChromeDriver driver = new ChromeDriver();
-            //driver = new HtmlUnitDriver(BrowserVersion.CHROME);
-        }
-        //Check if parameter passed as 'Edge'
-        else if(browser.equalsIgnoreCase("Edge")){
-            //set path to Edge.exe
-            // System.setProperty("webdriver.edge.driver", ".\\src\\main\\resources\\MicrosoftWebDriver.exe");
+            driver = new ChromeDriver();
+        } else if (browserName.equalsIgnoreCase("Edge")) {
             WebDriverManager.edgedriver().setup();
+            driver = new EdgeDriver();
 
-            //create Edge instance
-            EdgeDriver driver = new EdgeDriver();
-            //driver = new HtmlUnitDriver(BrowserVersion.EDGE);
         }
-        else{
-            //If no browser passed throw exception
-            throw new Exception("Browser is not correct");
-        }
-        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
     }
 
 
     @Test
     public void demo() throws InterruptedException, AWTException {
-//        WebDriverManager.chromedriver().setup();
-//        ChromeDriver driver = new ChromeDriver();
-//
 
         driver.manage().window().maximize();
         driver.get("http://tutorialsninja.com/demo/");
@@ -132,7 +113,7 @@ public class Final_selenium {
 
         String price = driver.findElement(By.xpath("//*[@id=\"content\"]/div/div[@class='col-sm-4']/ul//h2")).getText();
 
-//        Click on first image and move on another images before text '4 of 4' is present (check Pic1)
+//        Click on first image and move on another images before text '5 of 5' is present (check Pic1)
         int list_size = driver.findElements(By.xpath("//*[@id=\"content\"]//ul[@class = 'thumbnails']/li")).size();
 
         driver.findElement(By.xpath("//*[@id=\"content\"]//ul[@class = 'thumbnails']/li/a[@href='http://tutorialsninja.com/demo/image/cache/catalog/demo/ipod_shuffle_1-500x500.jpg']")).click();
@@ -194,7 +175,7 @@ public class Final_selenium {
 
             for (WebElement cell : cells) {
 
-                System.out.println(cell.getText().split(":")[1]);
+                System.out.println(cell.getText());
 
             }
         }
@@ -224,7 +205,7 @@ public class Final_selenium {
 
 
         try {
-            String curdate = driver.findElement(By.xpath(String.format("//*[@id=\"content\"]/div[1]/table/tbody/tr/td[text() = '%s']", datetime))).getText();
+            String curdate = driver.findElement(By.xpath(String.format("//*[@id=\"content\"]/div/table/tbody/tr/td[text() = '%s']", datetime))).getText();
 
 
 // ამოწმებს არი თუ არა დრო სწორი
