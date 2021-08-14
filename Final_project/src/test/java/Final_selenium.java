@@ -58,8 +58,12 @@ public class Final_selenium {
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
     }
 
+
     @Test
     public void demo() throws InterruptedException, AWTException {
+//        WebDriverManager.chromedriver().setup();
+//        ChromeDriver driver = new ChromeDriver();
+//
 
         driver.manage().window().maximize();
         driver.get("http://tutorialsninja.com/demo/");
@@ -156,7 +160,7 @@ public class Final_selenium {
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(("//span[@id='cart-total' and contains(text(),'1')]"))));
 
         System.out.println(driver.findElement(By.xpath("//*[@id=\"cart-total\"]")).getText());
-        driver.findElement(By.className("cart-total")).click();
+        driver.findElement(By.id("cart-total")).click();
         driver.findElement(By.xpath("//p[@class='text-right']/a[@href='http://tutorialsninja.com/demo/index.php?route=checkout/checkout']")).click();
 
 //                                                       - Fill Billing Details, choose Georgia and Tbilisi
